@@ -1,0 +1,53 @@
+### Problem 1
+
+const cars = ['Tesla', 'Mercedes', 'Honda']
+const [ randomCar ] = cars
+const [ ,otherRandomCar ] = cars
+//Predict the output
+console.log(randomCar)
+console.log(otherRandomCar)
+
+Output: Tesla, Mercedes
+
+
+### Problem 2
+
+const employee = {
+    name: 'Elon',
+    age: 47,
+    company: 'Tesla'
+}
+const { name: otherName } = employee;
+//Predict the output
+console.log(name);
+console.log(otherName);
+
+Output: error, name undefined
+
+
+### Problem 3
+
+Output: syntax error, password not in person dictionary
+
+
+### Problem 4
+
+Output: False, True
+
+
+### Problem 5
+
+const lastTest = {
+    key: 'value',
+    secondKey: [1, 5, 1, 8, 3, 3]
+}
+const { key } = lastTest;
+const { secondKey } = lastTest;
+const [ ,willThisWork] = secondKey;
+//Predict the output
+console.log(key);
+console.log(secondKey);
+console.log(secondKey[0]);
+console.log(willThisWork);
+
+Output: value, [1,5,1,8,3,3], 1, 5
