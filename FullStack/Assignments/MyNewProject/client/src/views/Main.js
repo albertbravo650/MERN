@@ -5,11 +5,15 @@ import React, {useState} from 'react'
 const Main = (props) => {
     const [people, setPeople] = useState([])
 
+    const removeFromDom = personID => {
+        setPeople(people.filter(person => person._id != personID))
+    }
+
     return(
-        <div>
+        <div className='main'>
             <PersonForm people={people} setPeople={setPeople} />
             <hr/>
-            <PersonList people={people} setPeople={setPeople} />
+            <PersonList people={people} setPeople={setPeople} removeFromDom={removeFromDom} />
         </div>
     )
 }

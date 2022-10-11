@@ -31,7 +31,7 @@ const PersonForm = (props) => {
                 <label>Last Name:</label><br/>
                 <input type="text" onChange={(e) => setLastName(e.target.value)}/>
             </div>
-            <input type="submit"/>
+            <input className='submitButton' type="submit"/>
         </form>
     )
 }
