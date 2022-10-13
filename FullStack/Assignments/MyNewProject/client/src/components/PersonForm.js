@@ -1,35 +1,25 @@
 import React, {useState} from 'react'
-import axios from 'axios'
 
 const PersonForm = (props) => {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const {people, setPeople} = props
-
+    
+    const {initialFirstName, initialLastName, onSubmitProp} = props
+    const [firstName, setFirstName] = useState(initialFirstName)
+    const [lastName, setLastName] = useState(initialLastName)
+    
     const submitHandler = (e) => {
         e.preventDefault()
-
-        axios.post('http://localhost:8000/api/people', {
-            firstName,
-            lastName
-        })
-        .then(res => {
-            console.log(res)
-            console.log(res.data)
-            setPeople([...people, res.data])
-        })
-        .catch(err => console.log(err))
+        onSubmitProp({firstName, lastName})
     }
 
     return(
         <form onSubmit={submitHandler}>
             <div>
                 <label>First Name:</label><br/>
-                <input type="text" onChange={(e) => setFirstName(e.target.value)}/>
+                <input type="text" name='firstName' defaultValue={firstName} onChange={(e)=>setFirstName(e.target.value)}/>
             </div>
             <div>
                 <label>Last Name:</label><br/>
-                <input type="text" onChange={(e) => setLastName(e.target.value)}/>
+                <input type="text" name='lastName' defaultValue={lastName} onChange={(e)=>setLastName(e.target.value)}/>
             </div>
             <input className='submitButton' type="submit"/>
         </form>

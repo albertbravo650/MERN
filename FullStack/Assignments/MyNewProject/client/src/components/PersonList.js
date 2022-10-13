@@ -1,20 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {Link} from 'react-router-dom'
+import DeleteButton from './DeleteButton'
 import '../App.css'
 
 const PersonList = (props) => {
-    const {removeFromDom, people, setPeople} = props
-
-    const deletePerson = (personID) => {
-        axios.delete('http://localhost:8000/api/people/' + personID)
-        .then(res => {
-            removeFromDom(personID)
-            console.log(res.data)
-        })
-        .catch(err => console.log(err))
-
-    }
+    const [people, setPeople] = useState([])
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/people')
@@ -24,6 +15,10 @@ const PersonList = (props) => {
         })
         .catch((err) => console.log(err))
     }, [])
+
+    const removeFromDom = personID => {
+        setPeople(people.filter(person => person._id !== personID))
+    }
 
     return(
         <div>
@@ -41,7 +36,7 @@ const PersonList = (props) => {
                             </div>
                             <br />
                             <div className='deletePerson'>
-                                <button onClick={(e)=>{deletePerson(person._id)}}>Delete</button>
+                                <DeleteButton personID={person._id} successCallback={()=>removeFromDom(person._id)}/>
                             </div>
                         </div>
                     )
