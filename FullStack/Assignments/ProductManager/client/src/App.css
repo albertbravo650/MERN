@@ -5,3 +5,13 @@
 .button {
   margin-top: 10px;
 }
+
+h2 {
+  padding: 10px;
+}
+
+.listItem {
+  padding: 10px;
+  border-bottom: 2px dashed lightblue;
+  box-shadow: 2px 2px 5px lightblue;
+}
