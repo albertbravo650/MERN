@@ -5,6 +5,7 @@ import axios from 'axios'
 
 const Main = (props) => {
     const [people, setPeople] = useState([])
+    const[errors, setErrors] = useState([])
 
     useEffect(() => {
         axios.get("http://localhost:8000/api/people")
@@ -28,10 +29,19 @@ const Main = (props) => {
             console.log(res.data)
             setPeople([...people, res.data])
         })
+        .catch(err => {
+            const errorResponse = err.response.data.errors
+            const errorArr = []
+            for(const key of Object.keys(errorResponse)) {
+                errorArr.push(errorResponse[key].message)
+            }
+            setErrors(errorArr)
+        })
     }
 
     return(
         <div className='main'>
+            {errors.map((err, index) => <p key={index}>{err}</p>)}
             <PersonForm onSubmitProp={createPerson} initialFirstName="" initialLastName="" />
             <hr/>
             <PersonList people={people} removeFromDom={removeFromDom} />

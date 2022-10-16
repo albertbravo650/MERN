@@ -11,6 +11,7 @@ const Update = (props) => {
     const [person, setPerson] = useState({})
     const [loaded, setLoaded] = useState(false)
     const navigate = useNavigate()
+    const[errors, setErrors] = useState([])
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/people/' + id)
@@ -27,7 +28,14 @@ const Update = (props) => {
             console.log(res)
             navigate('/')
         })
-        .catch(err => console.log(err))
+        .catch(err => {
+            const errorResponse = err.response.data.errors
+            const errorArr = []
+            for(const key of Object.keys(errorResponse)) {
+                errorArr.push(errorResponse[key].message)
+            }
+            setErrors(errorArr)
+        })
     }
 
     return(
@@ -36,6 +44,7 @@ const Update = (props) => {
             {
                 loaded && (
                     <div>
+                        {errors.map((err, index) => <p key={index}>{err}</p>)}
                         <PersonForm onSubmitProp={updatePerson} initialFirstName={person.firstName}
                         initialLastName={person.lastName} />
                         <DeleteButton personID={person._id} successCallback={()=>navigate('/')} />

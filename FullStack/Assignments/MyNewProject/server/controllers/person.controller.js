@@ -5,9 +5,19 @@ module.exports.index = (req, res) => {
 }
 
 module.exports.createPerson = (req, res) => {
-    Person.create(req.body)
+    const {firstName, lastName} = req.body
+    Person.create({
+        firstName,
+        lastName
+    })
     .then(person => res.json(person))
-    .catch(err => res.json(err))
+    .catch(err => res.status(400).json(err))
+}
+
+module.exports.updatePerson = (req, res) => {
+    Person.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, runValidators: true})
+    .then(update => res.json(update))
+    .catch(err => res.status(400).json(err))
 }
 
 module.exports.getAllPeople = (req, res) => {
@@ -19,12 +29,6 @@ module.exports.getAllPeople = (req, res) => {
 module.exports.getPerson = (req, res) => {
     Person.findOne({_id: req.params.id})
     .then(person => res.json(person))
-    .catch(err => res.json(err))
-}
-
-module.exports.updatePerson = (req, res) => {
-    Person.findOneAndUpdate({_id: req.params.id}, req.body, {new: true})
-    .then(update => res.json(update))
     .catch(err => res.json(err))
 }
 
