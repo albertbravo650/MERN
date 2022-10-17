@@ -1,0 +1,11 @@
+* {
+    padding: 10px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.paper {
+    width: 400px;
+    padding: 25px;
+    text-align: center;
+    margin: 5px;
+}
