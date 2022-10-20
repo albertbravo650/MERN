@@ -1,13 +1,19 @@
 import React, {useState} from 'react'
+import { useNavigate } from 'react-router-dom'
 
 const Form = (props) => {
     
     const {initialName, onSubmitProp} = props
     const [name, setName] = useState(initialName)
+    const navigate = useNavigate()
     
     const submitHandler = (e) => {
         e.preventDefault()
         onSubmitProp({name})
+    }
+
+    const navigateHandle = () => {
+        navigate('/')
     }
 
     return(
@@ -21,7 +27,8 @@ const Form = (props) => {
                         </div>
                     </div>
                 </div>
-                <input className='submitButton' type="submit"/>
+                <button className='cancel' onClick={navigateHandle}>Cancel</button>
+                <input className='submit' type="submit" defaultValue={"Submit"}/>
             </form>
         </div>
     )

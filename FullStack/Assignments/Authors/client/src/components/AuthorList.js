@@ -1,9 +1,11 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
 
 const AuthorList = (props) => {
     const [authors, setAuthors] = useState([])
+    const {id} = useParams()
+    const navigate = useNavigate()
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/authors')
@@ -14,6 +16,15 @@ const AuthorList = (props) => {
         .catch((err) => console.log(err))
     }, [])
 
+    const deleteAuthor = id => {
+        axios.delete('http://localhost:8000/api/author/' + id)
+        .then(res => {
+            console.log(res)
+            setAuthors(authors.filter(author => author._id !== id))
+        })
+        .catch(err => console.log(err))
+    }
+    
     return(
         <div>
             <div className='top'>
@@ -36,6 +47,7 @@ const AuthorList = (props) => {
                                         <td>{author.name}</td>
                                         <td>
                                             <Link to={`/author/edit/${author._id}`}>edit</Link>
+                                            <button onClick={() => deleteAuthor(author._id)}>Delete</button>
                                         </td>
                                     </tr>
                                 )
