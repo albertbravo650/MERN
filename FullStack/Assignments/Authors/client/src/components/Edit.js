@@ -39,7 +39,7 @@ const Edit = (props) => {
         <div>
             <div className='top'>
                 <h1>Favorite authors</h1>
-                <Link to={'/'}>Home</Link>
+                <Link className='link' to={'/'}>Home</Link>
             </div>
             <h2>Edit this author:</h2>
             {

@@ -1,3 +1,26 @@
 .App {
     padding: 10px;
 }
+
+h2 {
+    color: rebeccapurple;
+}
+
+.link {
+    color: blue;
+}
+
+.authorName {
+    color: rebeccapurple;
+    font-weight: 500;
+    margin-right: 50px;
+}
+
+tr {
+    display: flex;
+    justify-content: space-between;
+}
+
+button {
+    margin-right: 10px;
+}

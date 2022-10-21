@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {Link, useParams, useNavigate} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 
 const AuthorList = (props) => {
     const [authors, setAuthors] = useState([])
-    const {id} = useParams()
-    const navigate = useNavigate()
+    
 
     useEffect(() => {
         axios.get('http://localhost:8000/api/authors')
@@ -29,7 +28,7 @@ const AuthorList = (props) => {
         <div>
             <div className='top'>
                 <h1>Favorite authors</h1>
-                <Link to={'/new'}>Add an author</Link>
+                <Link className='link' to={'/new'}>Add an author</Link>
             </div>
             <h2>We have quotes by:</h2>
             <div className='box'>
@@ -44,9 +43,9 @@ const AuthorList = (props) => {
                             {authors.map((author, index) => {
                                 return(
                                     <tr key={index}>
-                                        <td>{author.name}</td>
+                                        <td className='authorName'>{author.name}</td>
                                         <td>
-                                            <Link to={`/author/edit/${author._id}`}>edit</Link>
+                                            <button><Link to={`/author/edit/${author._id}`}>edit</Link></button>
                                             <button onClick={() => deleteAuthor(author._id)}>Delete</button>
                                         </td>
                                     </tr>
